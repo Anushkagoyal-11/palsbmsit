@@ -80,3 +80,4 @@ Use any static hosting platform:
 
 No build step is required.
 # palsbmsit
+# palsbmsit
