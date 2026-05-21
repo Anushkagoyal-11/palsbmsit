@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Travel Architect</title>
+    <meta
+      name="description"
+      content="A memory-aware travel itinerary builder that generates realistic, paced, budget-aligned JSON plans."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="app-frame">
+        <header class="top-nav">
+          <a class="logo" href="#planner" aria-label="AI Travel Architect home">Travel Architect.</a>
+          <nav aria-label="Primary navigation">
+            <a class="active" href="#planner">Home</a>
+            <a href="#planner" data-nav-tab="solution">Solution</a>
+            <a href="#planner" data-nav-tab="research">Research</a>
+            <a href="#planner" data-nav-tab="plan">Itinerary</a>
+          </nav>
+          <a class="login-pill" href="#planner">Plan Trip</a>
+        </header>
+
+        <section class="landing-hero" aria-label="Travel planning hero">
+          <div class="hero-message">
+            <p class="eyebrow">AI travel planning cockpit</p>
+            <h1>Let’s Plan Your Perfect <span>Journey</span></h1>
+            <p>Build a realistic itinerary with famous food routes, cheapest ride redirects, budget fit, and research-backed personalization.</p>
+            <a class="hero-cta" href="#planner">Discover Now</a>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="globe">
+              <span class="continent one"></span>
+              <span class="continent two"></span>
+              <span class="continent three"></span>
+              <span class="shine"></span>
+            </div>
+            <div class="plane"></div>
+            <div class="pin"></div>
+            <div class="cloud cloud-one"></div>
+            <div class="cloud cloud-two"></div>
+            <div class="ticket"></div>
+          </div>
+          <form class="quick-search" id="quickSearch" aria-label="Quick trip search">
+            <label for="quickDestination">Location</label>
+            <input id="quickDestination" placeholder="Where do you want to go?">
+            <button id="quickSubmit" type="submit" aria-label="Use destination">Search</button>
+          </form>
+        </section>
+      </section>
+
+      <section class="workspace" id="planner" aria-label="AI Travel Architect workspace">
+        <aside class="control-panel">
+          <div class="brand">
+            <span class="brand-mark" aria-hidden="true">AT</span>
+            <div>
+              <p class="eyebrow">AI Travel Architect</p>
+              <h1>Memory-first itinerary generator</h1>
+            </div>
+          </div>
+
+          <div class="progress-rail" aria-label="Planning workflow">
+            <span class="active">Input</span>
+            <span>Memory</span>
+            <span>Route</span>
+            <span>Export</span>
+          </div>
+
+          <form id="tripForm" class="trip-form">
+            <div class="field-row">
+              <label for="destination">Destination</label>
+              <input id="destination" name="destination" value="Jaipur" required>
+            </div>
+
+            <div class="field-row">
+              <label for="startPoint">Stay / pickup area</label>
+              <input id="startPoint" name="startPoint" value="City centre hotel">
+            </div>
+
+            <div class="grid-2">
+              <div class="field-row">
+                <label for="startDate">Start date</label>
+                <input id="startDate" name="startDate" type="date" required>
+              </div>
+              <div class="field-row">
+                <label for="endDate">End date</label>
+                <input id="endDate" name="endDate" type="date" required>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field-row">
+                <label for="budget">Budget level</label>
+                <select id="budget" name="budget">
+                  <option>Budget</option>
+                  <option selected>Moderate</option>
+                  <option>Premium</option>
+                </select>
+              </div>
+              <div class="field-row">
+                <label for="vibe">Desired vibe</label>
+                <select id="vibe" name="vibe">
+                  <option>Calm culture</option>
+                  <option selected>Hidden gems</option>
+                  <option>Food crawl</option>
+                  <option>Adventure</option>
+                  <option>Romantic slow travel</option>
+                  <option>Friends trip</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field-row">
+                <label for="pace">Pace</label>
+                <select id="pace" name="pace">
+                  <option>Relaxed</option>
+                  <option selected>Balanced</option>
+                  <option>High energy</option>
+                </select>
+              </div>
+              <div class="field-row">
+                <label for="sustainability">Sustainability</label>
+                <select id="sustainability" name="sustainability">
+                  <option>Low priority</option>
+                  <option selected>Balanced</option>
+                  <option>High priority</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field-row">
+                <label for="weather">Weather</label>
+                <select id="weather" name="weather">
+                  <option selected>Clear</option>
+                  <option>Hot</option>
+                  <option>Rainy</option>
+                  <option>Cold</option>
+                </select>
+              </div>
+              <div class="field-row">
+                <label for="health">Health / energy</label>
+                <select id="health" name="health">
+                  <option>Low energy</option>
+                  <option selected>Normal</option>
+                  <option>Very fit</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field-row">
+                <label for="delay">Delay status</label>
+                <select id="delay" name="delay">
+                  <option selected>On time</option>
+                  <option>30 min late</option>
+                  <option>1 hour late</option>
+                  <option>2+ hours late</option>
+                </select>
+              </div>
+              <div class="field-row">
+                <label for="traffic">Traffic</label>
+                <select id="traffic" name="traffic">
+                  <option>Light</option>
+                  <option selected>Moderate</option>
+                  <option>Heavy</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <label for="likes">Stored likes</label>
+              <textarea id="likes" name="likes" rows="3">heritage walks, local markets, sunrise viewpoints, vegetarian cafes</textarea>
+            </div>
+
+            <div class="field-row">
+              <label for="dislikes">Stored dislikes</label>
+              <textarea id="dislikes" name="dislikes" rows="3">rushed sightseeing, crowded tourist traps, late-night clubs</textarea>
+            </div>
+
+            <div class="field-row">
+              <label for="style">Dietary / travel style</label>
+              <textarea id="style" name="style" rows="3">vegetarian, prefers public transport and short cab rides, needs relaxed afternoons</textarea>
+            </div>
+
+            <div class="button-row">
+              <button class="primary" type="submit">Generate itinerary</button>
+              <button class="secondary" id="loadDemo" type="button">Load demo</button>
+            </div>
+          </form>
+
+          <div class="micro-proof">
+            <strong>Demo promise</strong>
+            <p>Every generated plan exposes preference fit, budget range, pacing logic, and a schema-safe JSON export.</p>
+          </div>
+        </aside>
+
+        <section class="output-panel">
+          <div class="hero-strip">
+            <div>
+              <p class="eyebrow">Judge-ready differentiator</p>
+              <h2>Not another trip list. A constraint-aware travel architect.</h2>
+              <p class="hero-copy">A planning cockpit that turns memory, budget, and vibe into an explainable route before booking begins.</p>
+            </div>
+            <div class="hero-metrics" aria-label="Trip quality metrics">
+              <div class="score-card">
+                <span id="fitScore">92</span>
+                <small>Preference fit</small>
+              </div>
+              <div class="mini-metrics">
+                <span><b id="dayCount">3</b> days</span>
+                <span><b id="budgetRange">₹2.1k+</b> daily</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="insight-grid">
+            <article>
+              <span>01</span>
+              <h3>Memory weighted</h3>
+              <p>Stored likes, dislikes, diet, and travel style visibly influence every day.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>Pacing guarded</h3>
+              <p>Only morning, afternoon, and evening blocks with realistic buffers.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>Budget traceable</h3>
+              <p>Costs stay inside the selected budget band using INR estimates.</p>
+            </article>
+          </div>
+
+          <div class="tabs" role="tablist" aria-label="Output views">
+            <button class="tab active" data-tab="plan" type="button">Plan</button>
+            <button class="tab" data-tab="solution" type="button">Solution</button>
+            <button class="tab" data-tab="research" type="button">Research</button>
+            <button class="tab" data-tab="json" type="button">JSON</button>
+            <button class="tab" data-tab="defense" type="button">Defense</button>
+            <button class="tab" data-tab="prompt" type="button">Prompt</button>
+          </div>
+
+          <section class="tab-panel active" id="planPanel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Human-friendly route</p>
+                <h2>Visual itinerary</h2>
+              </div>
+              <div class="route-chip" id="routeChip">Compact routing</div>
+            </div>
+            <div class="summary-band">
+              <p id="tripSummary"></p>
+              <span id="icebreaker"></span>
+            </div>
+            <div class="intelligence-grid" id="intelligenceGrid"></div>
+            <div class="mobility-panel">
+              <div>
+                <p class="eyebrow">Last-mile accessibility</p>
+                <h3>Cheapest ride assist</h3>
+                <p>Compare estimated options and jump directly to a ride or map app for the next stop.</p>
+              </div>
+              <div class="mobility-actions" id="mobilityActions"></div>
+            </div>
+            <div class="food-map-panel">
+              <div>
+                <p class="eyebrow">Famous food map</p>
+                <h3>Food trail to follow</h3>
+                <p>Curated iconic food stops are arranged into a simple map route so users can follow the crawl without copying addresses.</p>
+              </div>
+              <div class="food-route" id="foodRoute"></div>
+            </div>
+            <div class="timeline" id="timeline"></div>
+          </section>
+
+          <section class="tab-panel" id="solutionPanel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Problem statement to solution</p>
+                <h2>Why this app exists</h2>
+              </div>
+            </div>
+            <div class="solution-layout">
+              <article class="problem-card">
+                <span>Problem</span>
+                <h3>Travel planning is scattered, generic, and easy to overpack.</h3>
+                <p>Users jump between booking apps, maps, blogs, and chatbots. They still have to repeat personal preferences, check budget fit, avoid disliked experiences, and manually fix unrealistic routing.</p>
+              </article>
+              <article class="problem-card accent">
+                <span>Solution</span>
+                <h3>A memory-aware planner that explains every recommendation.</h3>
+                <p>The app converts destination, pickup area, dates, budget, vibe, preferences, dislikes, diet, pace, and sustainability priority into a paced itinerary with ride redirects, JSON export, and judge-readable reasoning.</p>
+              </article>
+            </div>
+            <div class="feature-matrix">
+              <article>
+                <strong>Memory Match</strong>
+                <p>Weights saved likes and travel style before generic popularity.</p>
+              </article>
+              <article>
+                <strong>Constraint Guard</strong>
+                <p>Caps every day to three blocks and flags routing/pacing risk.</p>
+              </article>
+              <article>
+                <strong>Budget Banding</strong>
+                <p>Maps recommendations to transparent INR ranges.</p>
+              </article>
+              <article>
+                <strong>Research Layer</strong>
+                <p>Connects the product logic to POI recommendation and tourist trip design research.</p>
+              </article>
+              <article>
+                <strong>Mobility Redirects</strong>
+                <p>Compares estimated ride choices and opens mobility apps for the next stop.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="tab-panel" id="researchPanel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Research-backed planning model</p>
+                <h2>Academic foundation</h2>
+              </div>
+            </div>
+            <div class="research-list" id="researchList"></div>
+          </section>
+
+          <section class="tab-panel" id="jsonPanel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Schema-locked result</p>
+                <h2>Generated itinerary</h2>
+              </div>
+              <button class="secondary compact" id="copyJson" type="button">Copy JSON</button>
+            </div>
+            <pre id="jsonOutput" aria-live="polite"></pre>
+          </section>
+
+          <section class="tab-panel" id="defensePanel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">What to say to judges</p>
+                <h2>Why this beats generic planning</h2>
+              </div>
+            </div>
+            <div class="defense-list" id="defenseList"></div>
+          </section>
+
+          <section class="tab-panel" id="promptPanel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Refined input</p>
+                <h2>Production prompt template</h2>
+              </div>
+              <button class="secondary compact" id="copyPrompt" type="button">Copy prompt</button>
+            </div>
+            <pre id="promptOutput"></pre>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
